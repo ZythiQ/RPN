@@ -1,41 +1,40 @@
-from interfaces.expression import Expression
+from interfaces.expression import Expression, Literal
 from interfaces.context import Context
-import pkgutil, importlib, inspect
 
 class Parser():
-    '''Static script parser.'''
+    '''Script parser.'''
 
-    # ===== Constants ===== #
-    EXPS_PKG = 'expressions'
-    EXPS:list = []
-
-    # ===== Loaders ===== #
-    @staticmethod
-    def __load_expressions():
-        '''Dynamically load expressions.'''
-
-        # If not init:
-        if not Parser.EXPS:
-            for _, name, _ in pkgutil.iter_modules([Parser.EXPS_PKG]):
-                module = importlib.import_module(f'{Parser.EXPS_PKG}.{name}')
-
-                # Append expression if valid:
-                for _, obj in inspect.getmembers(module, inspect.isclass):
-                    if issubclass(obj, Expression):
-                        Parser.EXPS.append(obj)
+    # ===== Attributes ===== #
+    expressions:list[Expression]
+    literal:Literal
 
     # ===== Methods ===== #
-    @staticmethod
-    def validate(script:str) -> bool:
+    def __init__(self):
+        '''Parser constructor.'''
+        self.expressions = []
+        self.literal = None
+
+    def validate(self, script:str) -> bool:
         '''Validate the script syntax and return result.'''
         pass
 
-    @staticmethod
-    def parse(script:str) -> Context | None:
+    def parse(self, script:str) -> Context | None:
         '''Parse the script and return a context. None if invalid.'''
         pass
 
-    @staticmethod
-    def parseFile(absolutePath:str) -> Context | None:
+    def parseFile(self, absolutePath:str) -> Context | None:
         '''Parse the script file and return a context. None if invalid.'''
+        pass
+
+    # ===== Loaders ===== #
+    def addExpression(self, exp:Expression, key:chr):
+        '''Add a key-bound expression.'''
+        pass
+
+    def addLiteral(self, lit:Literal):
+        '''Add a default expression for unknown bindings.'''
+        pass
+
+    def addContainer(self, cntr:Expression, leftKey:chr, rightKey:chr, asLiterals:bool=False):
+        '''Add a key-delimited container expression (optionally parse children as literals).'''
         pass
