@@ -6,8 +6,8 @@ class Pack(Literal):
 
     # ===== Properties ===== #
     @property
-    def value(self) -> list[str]:
-        '''Get the pack's representation.'''
+    def value(self) -> list[int]:
+        '''Get the pack's ordinal representation.'''
         return self._values
 
     @value.setter
@@ -16,7 +16,7 @@ class Pack(Literal):
         if not all(isinstance(v, str) and 1 == len(v) for v in values):
                 raise ValueError('All values must be single characters.')
         
-        self._values = list(values)
+        self._values = [ord(v) for v in values]
 
     # ===== Methods ===== #
     def __init__(self, *values: str):
@@ -29,4 +29,4 @@ class Pack(Literal):
 
     def __str__(self):
         '''Return a string representation of the pack.'''
-        return f'{''.join(self._values)}'
+        return ''.join(chr(v) for v in self._values)
