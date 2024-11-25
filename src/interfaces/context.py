@@ -4,12 +4,6 @@ from collections import deque
 class Context():
     '''Maintain and execute the program.'''
 
-    # ===== Attributes ===== #
-    stack:deque
-    binds:dict
-    hand:deque
-    log:bool
-
     # ===== Methods ===== #
     def __init__(self, program:list[Expression], log:bool=False):
         '''Context constructor.'''

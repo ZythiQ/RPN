@@ -4,14 +4,10 @@ from interfaces.context import Context
 class Parser():
     '''Script parser.'''
 
-    # ===== Attributes ===== #
-    expressions:list[Expression]
-    literal:Literal
-
     # ===== Methods ===== #
     def __init__(self):
         '''Parser constructor.'''
-        self.expressions = []
+        self.expressions = list()
         self.literal = None
 
     def validate(self, script:str) -> bool:
