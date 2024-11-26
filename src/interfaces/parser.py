@@ -1,17 +1,25 @@
-from interfaces.expression import Expression, Literal
+from interfaces.expression import Expression
 from interfaces.context import Context
+from collections import namedtuple
 
 class Parser():
-    '''Script parser.'''
+    '''Parses a script and returns a program context.'''
+
+    # ===== Other ===== #
+    Container = namedtuple('Container', ['expression', 'rightKey', 'strict'])
 
     # ===== Methods ===== #
     def __init__(self):
         '''Parser constructor.'''
-        self.expressions = list()
-        self.literal = None
+        self.default = None
+        self.expressions = dict()
 
-    def validate(self, script:str) -> bool:
-        '''Validate the script syntax and return result.'''
+    def addDefault(self, exp:Expression):
+        '''Add a default for unknown bindings.'''
+        pass
+
+    def addExpression(self, exp:Expression, key:str, rightKey:str=None, strict:bool=True):
+        '''Add a key-bound expression (default strict syntax).'''
         pass
 
     def parse(self, script:str) -> Context | None:
@@ -20,17 +28,4 @@ class Parser():
 
     def parseFile(self, absolutePath:str) -> Context | None:
         '''Parse the script file and return a context. None if invalid.'''
-        pass
-
-    # ===== Loaders ===== #
-    def addExpression(self, exp:Expression, key:chr):
-        '''Add a key-bound expression.'''
-        pass
-
-    def addLiteral(self, lit:Literal):
-        '''Add a default expression for unknown bindings.'''
-        pass
-
-    def addContainer(self, cntr:Expression, leftKey:chr, rightKey:chr, asLiterals:bool=False):
-        '''Add a key-delimited container expression (optionally parse children as literals).'''
         pass
