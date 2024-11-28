@@ -1,4 +1,5 @@
-from interfaces.expression import Expression
+from lib.expression import Expression
+
 from collections import deque
 
 class Context():
@@ -16,20 +17,26 @@ class Context():
 
     def step(self):
         '''Execute the next step.'''
-        pass
+        if (exp := self.stack.pop()):
+            exp.evaluate()
 
     def push(self, exp:Expression):
         '''Push the expression onto the stack.'''
-        pass
+        self.stack.append(exp)
 
     def touch(self, exp:Expression):
-        '''Push the expression into program hand.'''
-        pass
+        '''Push the expression into the hand.'''
+        self.hand.append(exp)
 
-    def bind(self, exp:Expression, key:str=None):
-        '''Bind the expression to the key. Unbind if no key.'''
-        pass
+    def take(self):
+        '''Pop the expression currently in the hand.'''
+        return self.hand.pop()
+
+    def bind(self, key:str, exp:Expression=None):
+        '''Bind the expression to the key. Unbind if no expression.'''
+        if exp: self.binds.update(key, exp)
+        else: self.binds.pop(key)
 
     def __str__(self) -> str:
         '''Represent the current context as a string.'''
-        pass
+        return f'[{self.stack}]({self.hand})<{self.binds}>'

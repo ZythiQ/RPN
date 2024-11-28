@@ -1,4 +1,5 @@
-from interfaces.context import Context
+from lib.context import Context
+
 from abc import ABC, abstractmethod
 
 class Expression(ABC):
@@ -8,11 +9,11 @@ class Expression(ABC):
         '''Expression constructor.'''
         self._value = value
 
-    def set_value(self, value):
+    def setValue(self, value):
         '''Set the value for the expression.'''
         self._value = value
 
-    def get_value(self):
+    def getValue(self):
         '''Get the value of the expression.'''
         return self._value
 
